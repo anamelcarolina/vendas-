@@ -1,0 +1,30 @@
+create database vendas;
+use vendas;
+
+create table vendedores(
+idvendedores int unsigned not null auto_increment, -- int unsigned (inteiro positivo), not null (não nulo, valores não vazios) e auto_increment (gerar automaticamente um número único e sequencial)
+nome varchar (50) not null, -- varchar (para armazenar textos de diferentes tamanhos)
+datacontratação date, -- date (data: AA-MM-DD, ano, mes e dia)
+salario float default 1000, -- default (se nenhum  valor for passado, esse valor padrão será assumido)
+comissão float, -- float (numero com casas decimais, exemplo 1,5)
+primary key(idvendedores)
+);
+
+create table clientes (
+idclientes int unsigned not null auto_increment,
+nome varchar (50) not null,
+endereço varchar (50),
+cidade varchar (20),
+cep varchar (8),
+primary key (idclientes)
+);
+
+create table faturas(
+    idfaturas int unsigned not null auto_increment,
+    data date,
+    idclientes int unsigned not null,
+    idvendedores int unsigned not null,
+    primary key (idfaturas),
+    foreign key (idclientes) references clientes(idclientes), -- foreign key (reforçar uma relação entre dados de duas tabelas diferentes) references (referencia de quais tabelas)
+    foreign key (idvendedores) references vendedores(idvendedores)
+);
